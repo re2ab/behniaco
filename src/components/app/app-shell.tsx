@@ -56,7 +56,13 @@ const NAV = [
   { to: "/settings", key: "settings", icon: Settings },
 ] as const;
 
-function NavList({ collapsed, onNavigate }: { collapsed: boolean; onNavigate?: () => void }) {
+function NavList({
+  collapsed,
+  onNavigate,
+}: {
+  collapsed: boolean;
+  onNavigate?: (() => void) | undefined;
+}) {
   const { t } = useI18n();
   const pathname = useRouterState({ select: (s) => s.location.pathname });
 
