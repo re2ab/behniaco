@@ -14,16 +14,577 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      activities: {
+        Row: {
+          actor_name: string | null
+          actor_user_id: string | null
+          case_id: string | null
+          content: string | null
+          created_at: string
+          id: string
+          meta: Json
+          type: string
+        }
+        Insert: {
+          actor_name?: string | null
+          actor_user_id?: string | null
+          case_id?: string | null
+          content?: string | null
+          created_at?: string
+          id?: string
+          meta?: Json
+          type: string
+        }
+        Update: {
+          actor_name?: string | null
+          actor_user_id?: string | null
+          case_id?: string | null
+          content?: string | null
+          created_at?: string
+          id?: string
+          meta?: Json
+          type?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "activities_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cases: {
+        Row: {
+          case_number: string
+          contact_id: string | null
+          created_at: string
+          currency: string
+          description: string | null
+          due_date: string | null
+          exchange_rate: number | null
+          id: string
+          last_activity_at: string
+          organization_id: string | null
+          priority: Database["public"]["Enums"]["priority"]
+          responsible_name: string | null
+          responsible_user_id: string | null
+          source: string | null
+          status: Database["public"]["Enums"]["case_status"]
+          title: string
+          updated_at: string
+          value: number
+        }
+        Insert: {
+          case_number: string
+          contact_id?: string | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          due_date?: string | null
+          exchange_rate?: number | null
+          id?: string
+          last_activity_at?: string
+          organization_id?: string | null
+          priority?: Database["public"]["Enums"]["priority"]
+          responsible_name?: string | null
+          responsible_user_id?: string | null
+          source?: string | null
+          status?: Database["public"]["Enums"]["case_status"]
+          title: string
+          updated_at?: string
+          value?: number
+        }
+        Update: {
+          case_number?: string
+          contact_id?: string | null
+          created_at?: string
+          currency?: string
+          description?: string | null
+          due_date?: string | null
+          exchange_rate?: number | null
+          id?: string
+          last_activity_at?: string
+          organization_id?: string | null
+          priority?: Database["public"]["Enums"]["priority"]
+          responsible_name?: string | null
+          responsible_user_id?: string | null
+          source?: string | null
+          status?: Database["public"]["Enums"]["case_status"]
+          title?: string
+          updated_at?: string
+          value?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cases_contact_id_fkey"
+            columns: ["contact_id"]
+            isOneToOne: false
+            referencedRelation: "contacts"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "cases_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      contacts: {
+        Row: {
+          created_at: string
+          email: string | null
+          full_name: string
+          id: string
+          job_title: string | null
+          notes: string | null
+          organization_id: string | null
+          phone: string | null
+          tags: string[]
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          full_name: string
+          id?: string
+          job_title?: string | null
+          notes?: string | null
+          organization_id?: string | null
+          phone?: string | null
+          tags?: string[]
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          full_name?: string
+          id?: string
+          job_title?: string | null
+          notes?: string | null
+          organization_id?: string | null
+          phone?: string | null
+          tags?: string[]
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "contacts_organization_id_fkey"
+            columns: ["organization_id"]
+            isOneToOne: false
+            referencedRelation: "organizations"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      deliveries: {
+        Row: {
+          case_id: string | null
+          created_at: string
+          delivery_date: string | null
+          id: string
+          incoterm: string | null
+          quantity: string | null
+          status: string
+        }
+        Insert: {
+          case_id?: string | null
+          created_at?: string
+          delivery_date?: string | null
+          id?: string
+          incoterm?: string | null
+          quantity?: string | null
+          status?: string
+        }
+        Update: {
+          case_id?: string | null
+          created_at?: string
+          delivery_date?: string | null
+          id?: string
+          incoterm?: string | null
+          quantity?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "deliveries_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      documents: {
+        Row: {
+          case_id: string | null
+          created_at: string
+          created_by: string | null
+          doc_type: string | null
+          file_url: string | null
+          id: string
+          name: string
+          size_kb: number
+          version: number
+        }
+        Insert: {
+          case_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          doc_type?: string | null
+          file_url?: string | null
+          id?: string
+          name: string
+          size_kb?: number
+          version?: number
+        }
+        Update: {
+          case_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          doc_type?: string | null
+          file_url?: string | null
+          id?: string
+          name?: string
+          size_kb?: number
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "documents_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      emails: {
+        Row: {
+          body: string | null
+          case_id: string | null
+          created_at: string
+          folder: string
+          has_attachments: boolean
+          id: string
+          is_read: boolean
+          recipient: string
+          sender: string
+          sent_at: string
+          subject: string
+        }
+        Insert: {
+          body?: string | null
+          case_id?: string | null
+          created_at?: string
+          folder?: string
+          has_attachments?: boolean
+          id?: string
+          is_read?: boolean
+          recipient: string
+          sender: string
+          sent_at?: string
+          subject: string
+        }
+        Update: {
+          body?: string | null
+          case_id?: string | null
+          created_at?: string
+          folder?: string
+          has_attachments?: boolean
+          id?: string
+          is_read?: boolean
+          recipient?: string
+          sender?: string
+          sent_at?: string
+          subject?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "emails_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      invoices: {
+        Row: {
+          amount: number
+          case_id: string | null
+          created_at: string
+          currency: string
+          due_date: string | null
+          id: string
+          invoice_number: string
+          issue_date: string
+          paid_amount: number
+          status: Database["public"]["Enums"]["invoice_status"]
+        }
+        Insert: {
+          amount?: number
+          case_id?: string | null
+          created_at?: string
+          currency?: string
+          due_date?: string | null
+          id?: string
+          invoice_number: string
+          issue_date?: string
+          paid_amount?: number
+          status?: Database["public"]["Enums"]["invoice_status"]
+        }
+        Update: {
+          amount?: number
+          case_id?: string | null
+          created_at?: string
+          currency?: string
+          due_date?: string | null
+          id?: string
+          invoice_number?: string
+          issue_date?: string
+          paid_amount?: number
+          status?: Database["public"]["Enums"]["invoice_status"]
+        }
+        Relationships: [
+          {
+            foreignKeyName: "invoices_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      organizations: {
+        Row: {
+          city: string | null
+          country: string | null
+          created_at: string
+          id: string
+          industry: string | null
+          name: string
+          phone: string | null
+          tags: string[]
+          updated_at: string
+          website: string | null
+        }
+        Insert: {
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          id?: string
+          industry?: string | null
+          name: string
+          phone?: string | null
+          tags?: string[]
+          updated_at?: string
+          website?: string | null
+        }
+        Update: {
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          id?: string
+          industry?: string | null
+          name?: string
+          phone?: string | null
+          tags?: string[]
+          updated_at?: string
+          website?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          email: string | null
+          full_name: string
+          id: string
+          job_title: string | null
+          phone: string | null
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string
+          id: string
+          job_title?: string | null
+          phone?: string | null
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          email?: string | null
+          full_name?: string
+          id?: string
+          job_title?: string | null
+          phone?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      proposals: {
+        Row: {
+          case_id: string | null
+          created_at: string
+          created_by: string | null
+          currency: string
+          id: string
+          kind: Database["public"]["Enums"]["proposal_kind"]
+          proposal_number: string
+          status: string
+          total: number
+          version: number
+        }
+        Insert: {
+          case_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          id?: string
+          kind: Database["public"]["Enums"]["proposal_kind"]
+          proposal_number: string
+          status?: string
+          total?: number
+          version?: number
+        }
+        Update: {
+          case_id?: string | null
+          created_at?: string
+          created_by?: string | null
+          currency?: string
+          id?: string
+          kind?: Database["public"]["Enums"]["proposal_kind"]
+          proposal_number?: string
+          status?: string
+          total?: number
+          version?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "proposals_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      tasks: {
+        Row: {
+          assignee_name: string | null
+          assignee_user_id: string | null
+          case_id: string | null
+          checklist: Json
+          created_at: string
+          description: string | null
+          due_date: string | null
+          id: string
+          priority: Database["public"]["Enums"]["priority"]
+          status: Database["public"]["Enums"]["task_status"]
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          assignee_name?: string | null
+          assignee_user_id?: string | null
+          case_id?: string | null
+          checklist?: Json
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          priority?: Database["public"]["Enums"]["priority"]
+          status?: Database["public"]["Enums"]["task_status"]
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          assignee_name?: string | null
+          assignee_user_id?: string | null
+          case_id?: string | null
+          checklist?: Json
+          created_at?: string
+          description?: string | null
+          due_date?: string | null
+          id?: string
+          priority?: Database["public"]["Enums"]["priority"]
+          status?: Database["public"]["Enums"]["task_status"]
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "tasks_case_id_fkey"
+            columns: ["case_id"]
+            isOneToOne: false
+            referencedRelation: "cases"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      user_roles: {
+        Row: {
+          created_at: string
+          id: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          role: Database["public"]["Enums"]["app_role"]
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          role?: Database["public"]["Enums"]["app_role"]
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      has_role: {
+        Args: {
+          _role: Database["public"]["Enums"]["app_role"]
+          _user_id: string
+        }
+        Returns: boolean
+      }
     }
     Enums: {
-      [_ in never]: never
+      app_role: "admin" | "manager" | "sales" | "finance" | "viewer"
+      case_status:
+        | "received"
+        | "awaiting_info"
+        | "awaiting_supplier_quote"
+        | "tech_proposal_prep"
+        | "tech_proposal_sent"
+        | "fin_proposal_prep"
+        | "fin_proposal_sent"
+        | "won"
+        | "purchasing"
+        | "receivables"
+        | "on_hold"
+        | "lost"
+        | "closed"
+      invoice_status: "draft" | "sent" | "paid" | "partially_paid" | "overdue"
+      priority: "low" | "medium" | "high" | "urgent"
+      proposal_kind: "technical" | "financial"
+      task_status: "todo" | "in_progress" | "done" | "cancelled"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +711,27 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      app_role: ["admin", "manager", "sales", "finance", "viewer"],
+      case_status: [
+        "received",
+        "awaiting_info",
+        "awaiting_supplier_quote",
+        "tech_proposal_prep",
+        "tech_proposal_sent",
+        "fin_proposal_prep",
+        "fin_proposal_sent",
+        "won",
+        "purchasing",
+        "receivables",
+        "on_hold",
+        "lost",
+        "closed",
+      ],
+      invoice_status: ["draft", "sent", "paid", "partially_paid", "overdue"],
+      priority: ["low", "medium", "high", "urgent"],
+      proposal_kind: ["technical", "financial"],
+      task_status: ["todo", "in_progress", "done", "cancelled"],
+    },
   },
 } as const
