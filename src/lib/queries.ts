@@ -13,7 +13,10 @@ export const casesQuery = queryOptions({
   },
 });
 
-export type CaseRow = Awaited<ReturnType<(typeof casesQuery)["queryFn"]>>[number];
+type Unwrap<T> = T extends (...args: never[]) => Promise<infer R> ? R : never;
+export type CaseRow = Unwrap<NonNullable<(typeof casesQuery)["queryFn"]>> extends (infer U)[]
+  ? U
+  : never;
 
 export const caseDetailQuery = (id: string) =>
   queryOptions({

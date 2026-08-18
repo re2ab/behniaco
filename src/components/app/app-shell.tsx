@@ -107,8 +107,8 @@ function SidebarInner({
   onNavigate,
 }: {
   collapsed: boolean;
-  onToggle?: () => void;
-  onNavigate?: () => void;
+  onToggle?: (() => void) | undefined;
+  onNavigate?: (() => void) | undefined;
 }) {
   const { t } = useI18n();
   return (
