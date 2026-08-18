@@ -61,7 +61,7 @@ function PipelinePage() {
     onError: () => toast.error("تغییر وضعیت انجام نشد"),
   });
 
-  const rows: CaseRow[] = data ?? [];
+  const rows = (data ?? []) as unknown as CaseRow[];
 
   return (
     <>

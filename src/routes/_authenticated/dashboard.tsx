@@ -22,7 +22,7 @@ import {
   StatCard,
   StatusBadge,
 } from "@/components/app/primitives";
-import { activitiesQuery, casesQuery, invoicesQuery, tasksQuery } from "@/lib/queries";
+import { type CaseRow, activitiesQuery, casesQuery, invoicesQuery, tasksQuery } from "@/lib/queries";
 import { ACTIVITY_LABEL, CASE_STATUS, formatMoney, timeAgo } from "@/lib/domain";
 
 export const Route = createFileRoute("/_authenticated/dashboard")({
@@ -54,7 +54,7 @@ function DashboardPage() {
   const invoices = useQuery(invoicesQuery);
   const activities = useQuery(activitiesQuery);
 
-  const rows = cases.data ?? [];
+  const rows = (cases.data ?? []) as unknown as CaseRow[];
   const open = rows.filter(
     (c) => !["won", "lost", "closed"].includes(c.status as string),
   ).length;
