@@ -1,5 +1,6 @@
 import { queryOptions } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import type { Database } from "@/integrations/supabase/types";
 
 export const casesQuery = queryOptions({
   queryKey: ["cases"],
@@ -13,10 +14,10 @@ export const casesQuery = queryOptions({
   },
 });
 
-type Unwrap<T> = T extends (...args: never[]) => Promise<infer R> ? R : never;
-export type CaseRow = Unwrap<NonNullable<(typeof casesQuery)["queryFn"]>> extends (infer U)[]
-  ? U
-  : never;
+export type CaseRow = Database["public"]["Tables"]["cases"]["Row"] & {
+  organizations: { name: string } | null;
+  contacts: { full_name: string } | null;
+};
 
 export const caseDetailQuery = (id: string) =>
   queryOptions({
