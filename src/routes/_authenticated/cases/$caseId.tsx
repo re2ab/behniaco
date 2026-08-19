@@ -167,7 +167,7 @@ function CaseDetailPage() {
                           </span>
                         </div>
                         <p className="mt-0.5 truncate text-xs text-muted-foreground">
-                          {e.from_address} ← {e.to_address}
+                          {e.sender} ← {e.recipient}
                         </p>
                         <p className="mt-1 line-clamp-2 text-xs text-muted-foreground">{e.body}</p>
                       </li>
@@ -188,7 +188,7 @@ function CaseDetailPage() {
                         <div className="min-w-0">
                           <p className="truncate text-sm">{d.name}</p>
                           <p className="text-xs text-muted-foreground">
-                            {d.category} · {d.file_type} · {formatDate(d.created_at)}
+                            {d.doc_type} · {formatDate(d.created_at)}
                           </p>
                         </div>
                         <span className="tabular shrink-0 text-xs text-muted-foreground">
@@ -210,13 +210,13 @@ function CaseDetailPage() {
                     {data.proposals.map((p) => (
                       <li key={p.id} className="flex items-center justify-between gap-3 py-2.5">
                         <div className="min-w-0">
-                          <p className="truncate text-sm">{p.title}</p>
+                          <p className="truncate text-sm">{p.kind === "financial" ? "پیشنهاد مالی" : "پیشنهاد فنی"}</p>
                           <p className="tabular text-xs text-muted-foreground">
                             {p.proposal_number} · نسخه {p.version} · {formatDate(p.created_at)}
                           </p>
                         </div>
                         <span className="tabular shrink-0 text-sm">
-                          {formatMoney(Number(p.total_amount), p.currency)}
+                          {formatMoney(Number(p.total), p.currency)}
                         </span>
                       </li>
                     ))}
@@ -261,9 +261,9 @@ function CaseDetailPage() {
                     {data.deliveries.map((d) => (
                       <li key={d.id} className="flex items-center justify-between gap-3 py-2.5">
                         <div className="min-w-0">
-                          <p className="truncate text-sm">{d.carrier}</p>
+                          <p className="truncate text-sm">{d.incoterm ?? "حمل و تحویل"}</p>
                           <p className="tabular text-xs text-muted-foreground">
-                            {d.tracking_number} · {formatDate(d.delivery_date)}
+                            {d.quantity ?? "—"} · {formatDate(d.delivery_date)}
                           </p>
                         </div>
                         <StatusBadge label={d.status} tone="info" />
